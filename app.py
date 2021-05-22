@@ -11,3 +11,7 @@ from .scr.help import print_help
 @app.route('/')
 def hello_world():
     return print_help()
+
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')
