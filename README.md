@@ -3,10 +3,12 @@
 ![alt text](https://github.com/kyuure/be-thefoodexplorer/blob/main/img/v1.0.png "Server Topology")
 Backend source code for TheFoodExplorer
 
+This project is intended for Capstone Project of team Kramcox Bangkit 2021
+
 
 ## Architecture
 
-#### Topology
+### Topology
 See [here](https://docs.google.com/presentation/d/1f8nl-JyYW6cXSfhCECTw_V_pQeOYsfTQ-flmfxzbivU/edit?usp=sharing "API Architecture")
 
 ### File Structure
