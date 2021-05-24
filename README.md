@@ -5,7 +5,24 @@ Backend source code for TheFoodExplorer
 
 
 ## Architecture
+
+#### Topology
 See [here](https://docs.google.com/presentation/d/1f8nl-JyYW6cXSfhCECTw_V_pQeOYsfTQ-flmfxzbivU/edit?usp=sharing "API Architecture")
+
+### File Structure
+```
+be-thefoodexplorer/
+├── Dockerfile
+├── requirements.txt
+├── app.py
+├── scr
+│   ├── getfood.py
+│   ├── help.py
+│   └── searchfood.py
+└── .github
+    └── workflows
+        └── GCP-Deploy.yaml
+```
 
 
 ## Run docker image locally
