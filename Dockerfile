@@ -14,5 +14,8 @@ WORKDIR /app
 COPY app.py .
 COPY scr scr/
 
+# Expose port, needed in Cloud Run
+EXPOSE $PORT
+
 # Run the app
 CMD ["python", "app.py"]
