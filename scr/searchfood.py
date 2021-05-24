@@ -5,7 +5,7 @@ def searchFoodByImage():
     POST method
     formdata berisi image
     """
-    pass
+    return {}
 
 
 def searchFoodByText():
@@ -15,4 +15,4 @@ def searchFoodByText():
     GET method
     pake query
     """
-    pass
+    return {}
