@@ -12,7 +12,7 @@ RUN pip3 install -r requirements.txt
 # Copy the code to /app
 WORKDIR /app
 COPY app.py .
-COPY scr/ .
+COPY scr .
 
 RUN ls -lah
 
