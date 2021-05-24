@@ -15,5 +15,4 @@ COPY app.py .
 COPY scr scr/
 
 # Run the app
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+CMD ["python", "app.py"]
