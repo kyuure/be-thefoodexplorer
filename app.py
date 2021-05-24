@@ -34,39 +34,36 @@ def error_json(message, status_code):
 
 
 # the API
-@app.route('/api/searchfoodbyimage/')
+@app.route('/api/searchfoodbyimage/', methods=['POST'])
 def search_image():
     if request.method != 'POST':
         return error_json('It has to be POST method.', 404)
 
     return jsonify(searchFoodByImage())
 
-@app.route('/api/searchfoodbytext/')
+@app.route('/api/searchfoodbytext/', methods=['GET'])
 def search_text():
     if request.method != 'GET':
         return error_json('It has to be GET method.', 404)
 
     return jsonify(searchFoodByText())
 
-@app.route('/api/getallfoods/')
+@app.route('/api/getallfoods/', methods=['GET'])
 def get_all():
     if request.method != 'GET':
         return error_json('It has to be GET method.', 404)
 
     return jsonify(getAllFoods())
 
-@app.route('/api/getfooddetail/')
+@app.route('/api/getfooddetail/', methods=['GET'])
 def get_detail():
     if request.method != 'GET':
         return error_json('It has to be GET method.', 404)
 
     return jsonify(getFoodDetail())
 
-@app.route('/api/getfoodstores/')
+@app.route('/api/getfoodstores/', methods=['GET'])
 def get_store():
-    if request.method != 'GET':
-        return error_json('It has to be GET method.', 404)
-
     return jsonify(getFoodStores())
 
 
