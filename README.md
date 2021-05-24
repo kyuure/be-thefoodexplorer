@@ -31,5 +31,5 @@ be-thefoodexplorer/
 ```sh
 git clone https://github.com/kyuure/be-thefoodexplorer.git && cd be-thefoodexplorer
 docker build -t be-thefoodexplorer .
-docker run -p 8080:5000 be-thefoodexplorer
+docker run -p 8080:8080 be-thefoodexplorer
 ```

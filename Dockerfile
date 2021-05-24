@@ -4,6 +4,8 @@
 FROM python:3.8
 
 # Environment setup, if any
+ENV PORT 8080
+ENV HOST 0.0.0.0
 
 # Run dependencies
 COPY requirements.txt requirements.txt
