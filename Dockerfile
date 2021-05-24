@@ -14,6 +14,8 @@ WORKDIR /app
 COPY app.py .
 COPY scr/ .
 
+RUN ls -lah
+
 # Run the app
 ENTRYPOINT ["python"]
 CMD ["app.py"]
