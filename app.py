@@ -34,25 +34,26 @@ def error_json(message, status_code):
 
 
 # the API
-@app.route('/api/searchfoodbyimage/', methods=['POST'])
+@app.route('/api/search/image/', methods=['POST'])
 def search_image():
     return jsonify(searchFoodByImage())
 
-@app.route('/api/searchfoodbytext/', methods=['GET'])
+@app.route('/api/search/<str:name>/', methods=['GET'])
 def search_text():
     return jsonify(searchFoodByText())
 
-@app.route('/api/getallfoods/', methods=['GET'])
+@app.route('/api/food/', methods=['GET'])
 def get_all():
     return jsonify(getAllFoods())
 
-@app.route('/api/getfooddetail/', methods=['GET'])
-def get_detail():
-    return jsonify(getFoodDetail())
+# Source: https://stackoverflow.com/questions/28229668/python-flask-how-to-get-route-id-from-url
+@app.route('/api/food/<int:id>/', methods=['GET'])
+def get_detail(id):
+    return jsonify(getFoodDetail(id))
 
-@app.route('/api/getfoodstores/', methods=['GET'])
-def get_store():
-    return jsonify(getFoodStores())
+@app.route('/api/food/store/<int:id>/', methods=['GET'])
+def get_store(id):
+    return jsonify(getFoodStores(id))
 
 
 # Main

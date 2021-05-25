@@ -9,23 +9,27 @@ This API is intended for TheFoodExplorer application.
 
 def print_man():
     return """
-    api/searchFoodByImage
+    api/search/image
       POST method
       form data berisi image
 
-    api/searchFoodByText
+    api/search/<name>
       GET method
+      search food using text
       nyari pake query
 
-    api/getAllFoods
+    api/food
       GET method
+      get all food data
       query semua (SELECT *)
 
-    api/getFoodDetail
+    api/food/<int:id>
       GET method
+      get food details based on id
       pake path berupa id-nya food
 
-    api/getFoodStores
+    api/food/store/<int:id>
       GET method
+      get food stores based on id
       pake path berupa id-nya food
     """
