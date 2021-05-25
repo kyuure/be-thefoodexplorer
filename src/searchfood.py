@@ -1,3 +1,8 @@
+# Source: https://cloud.google.com/firestore/docs/quickstart-servers#python
+from google.cloud import firestore
+db = firestore.Client()
+
+
 def searchFoodByImage():
     """
     # 
@@ -5,7 +10,38 @@ def searchFoodByImage():
     POST method
     formdata berisi image
     """
-    return {}
+
+    # Initialize data
+    data = {}
+
+    # Run model then specify the name of food
+
+    # Currently using dummy data
+    result = {
+            'success' : True,
+            'message' : 'Some message',
+            'data' : [
+                {
+                    'id': 0,
+                    'name': 'Tahu',
+                    'city': 'Jakarta',
+                    'image': 'localhost'
+                },
+                {
+                    'id': 0,
+                    'name': 'Tahu',
+                    'city': 'Jakarta',
+                    'image': 'localhost'
+                }
+            ]
+        }
+
+    if not result:
+        return {'success' : False,
+                'message' : 'Image doesnt match any object.'}
+    data = result
+
+    return data
 
 
 def searchFoodByText():
@@ -15,4 +51,33 @@ def searchFoodByText():
     GET method
     pake query
     """
-    return {}
+    # Initialize data
+    data = {}
+
+    # Do querying and check for the result
+    # Currently using dummy data
+    result = {
+            'success' : True,
+            'message' : 'Some message',
+            'data' : [
+                {
+                    'id': 0,
+                    'name': 'Tahu',
+                    'city': 'Jakarta',
+                    'image': 'localhost'
+                },
+                {
+                    'id': 0,
+                    'name': 'Tahu',
+                    'city': 'Jakarta',
+                    'image': 'localhost'
+                }
+            ]
+        }
+
+    if not result:
+        return {'success' : False,
+                'message' : 'Query doesnt match any object.'}
+    data = result
+
+    return data

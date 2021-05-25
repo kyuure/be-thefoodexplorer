@@ -26,7 +26,7 @@ from scr.getfood import (
 def home():
     return print_welcome()
 
-@app.route('/api/')
+@app.route('/api/v1/')
 def help():
     return print_man()
 
@@ -41,39 +41,43 @@ def allowed_filename(filename):
 
 
 # the API
-@app.route('/api/search/image/', methods=['POST'])
+# Structure API: https://github.com/SaveVic/the-food-explorer/blob/master/docs/api.md
+@app.route('/api/v1/food/', methods=['POST', 'GET'])
 def search_image():
-    img = request.files['image']
+    if request.method == 'POST':
+        # Search by image
+        img = request.files['image']
 
-    if not img:
-        return error_json('No image detected.', 400)
+        if not img:
+            return error_json('No image detected.', 400)
 
-    img_name = secure_filename(img.filename)
-    mimetype = img.mimetype
+        img_name = secure_filename(img.filename)
+        mimetype = img.mimetype
 
-    if allowed_filename(img_name):
-        # Upload image to db
-        # and pass it to model
-        pass
+        if allowed_filename(img_name):
+            # Upload image to db
+            # and pass it to model
+            pass
 
-    return jsonify(searchFoodByImage())
+        return jsonify(searchFoodByImage())
 
-@app.route('/api/search/<str:name>/', methods=['GET'])
-def search_text():
-    return jsonify(searchFoodByText())
+    else:
+        # Search by text
+        query = request.args.get('q')
 
-@app.route('/api/food/', methods=['GET'])
-def get_all():
-    return jsonify(getAllFoods())
+        if not query:
+            return error_json('No query detected.', 400)
+
+        return jsonify(searchFoodByText(query))
 
 # Source: https://stackoverflow.com/questions/28229668/python-flask-how-to-get-route-id-from-url
-@app.route('/api/food/<int:id>/', methods=['GET'])
-def get_detail(id):
-    return jsonify(getFoodDetail(id))
+@app.route('/api/v1/food/<int:food_id>/detail/', methods=['GET'])
+def get_detail(food_id):
+    return jsonify(getFoodDetail(food_id))
 
-@app.route('/api/food/store/<int:id>/', methods=['GET'])
-def get_store(id):
-    return jsonify(getFoodStores(id))
+@app.route('/api/v1/food/<int:food_id>/location/', methods=['GET'])
+def get_store(food_id):
+    return jsonify(getFoodStores(food_id))
 
 
 # Main
