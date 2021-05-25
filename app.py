@@ -1,4 +1,6 @@
 # Dependencies
+from werkzeug.utils import secure_filename
+
 from flask import Flask, request, jsonify, make_response
 app = Flask(__name__)
 
@@ -32,10 +34,28 @@ def error_json(message, status_code):
     # Source: https://stackoverflow.com/questions/55081497/cannot-return-404-error-as-json-instead-of-html-from-a-flask-restful-app
     return make_response(jsonify(message), status_code)
 
+def allowed_filename(filename):
+    return '.' in filename \
+            and filename.rsplit('.', 1)[1] in \
+            ['jpeg', 'jpg', 'png']
+
 
 # the API
 @app.route('/api/search/image/', methods=['POST'])
 def search_image():
+    img = request.files['image']
+
+    if not img:
+        return error_json('No image detected.', 400)
+
+    img_name = secure_filename(img.filename)
+    mimetype = img.mimetype
+
+    if allowed_filename(img_name):
+        # Upload image to db
+        # and pass it to model
+        pass
+
     return jsonify(searchFoodByImage())
 
 @app.route('/api/search/<str:name>/', methods=['GET'])
