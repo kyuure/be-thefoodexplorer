@@ -14,7 +14,7 @@ RUN pip3 install -r requirements.txt
 # Copy the code to /app
 WORKDIR /app
 COPY app.py .
-COPY scr scr/
+COPY src src/
 
 # Expose port, needed in Cloud Run
 EXPOSE $PORT

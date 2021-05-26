@@ -6,15 +6,15 @@ app = Flask(__name__)
 
 
 # The source
-from scr.help import (
+from src.help import (
         print_welcome,
         print_man
     )
-from scr.searchfood import (
+from src.searchfood import (
         searchFoodByImage,
         searchFoodByText
     )
-from scr.getfood import (
+from src.getfood import (
         getFoodDetail,
         getFoodStores
     )
