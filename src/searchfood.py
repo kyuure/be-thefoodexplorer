@@ -92,7 +92,7 @@ def searchFoodByText(query):
     send_dict['id'] = real_data['id']
     send_dict['name'] = query
     send_dict['city'] = real_data['city'] 
-
+    send_dict['image'] = real_data['image']
     
 
     if not result:
