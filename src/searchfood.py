@@ -54,8 +54,19 @@ def searchFoodByText(query):
     # Initialize data
     data = {}
 
+    users_ref = db.collection(u'food')
+    docs = users_ref.stream()
+    '''
+    for doc in docs:
+        data = doc.to_dict()
+    '''    
+   
+
+
+
     # Do querying and check for the result
     # Currently using dummy data
+   
     result = {
             'success' : True,
             'message' : 'Some message',
@@ -74,10 +85,25 @@ def searchFoodByText(query):
                 }
             ]
         }
+    
+    data = { el.id: el.to_dict() for el in docs }
+    real_data = data[query]
+    send_dict = {}
+    send_dict['id'] = real_data['id']
+    send_dict['name'] = query
+    send_dict['city'] = real_data['city'] 
+
+    
 
     if not result:
         return {'success' : False,
                 'message' : f'Query {query} doesnt match any object.'}
-    data = result
+        
+    return {'success' : True,
+                'message': 'BERHASIL BERHASIL BERHASIL HOREEEE',
+                'data': send_dict
+                }
 
-    return data
+    #data = result
+    #data = doc.to_dict()
+    #return data
