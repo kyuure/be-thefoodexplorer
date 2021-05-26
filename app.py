@@ -15,7 +15,6 @@ from scr.searchfood import (
         searchFoodByText
     )
 from scr.getfood import (
-        getAllFoods,
         getFoodDetail,
         getFoodStores
     )
@@ -46,6 +45,7 @@ def allowed_filename(filename):
 def search_image():
     if request.method == 'POST':
         # Search by image
+        # Source: https://stackoverflow.com/questions/31010819/uploading-file-in-python-flask
         img = request.files['image']
 
         if not img:
@@ -54,12 +54,12 @@ def search_image():
         img_name = secure_filename(img.filename)
         mimetype = img.mimetype
 
-        if allowed_filename(img_name):
-            # Upload image to db
-            # and pass it to model
-            pass
+        if not allowed_filename(img_name):
+            return error_json('File not supported.', 400)
 
-        return jsonify(searchFoodByImage())
+        # Upload image to db
+        # and pass it to model
+        return jsonify(searchFoodByImage(img, img_name))
 
     else:
         # Search by text

@@ -3,7 +3,7 @@ from google.cloud import firestore
 db = firestore.Client()
 
 
-def searchFoodByImage():
+def searchFoodByImage(img, img_name):
     """
     # 
     ---
@@ -38,13 +38,13 @@ def searchFoodByImage():
 
     if not result:
         return {'success' : False,
-                'message' : 'Image doesnt match any object.'}
+                'message' : f'Image {img_name} doesnt match any object.'}
     data = result
 
     return data
 
 
-def searchFoodByText():
+def searchFoodByText(query):
     """
     # 
     ---
@@ -77,7 +77,7 @@ def searchFoodByText():
 
     if not result:
         return {'success' : False,
-                'message' : 'Query doesnt match any object.'}
+                'message' : f'Query {query} doesnt match any object.'}
     data = result
 
     return data
