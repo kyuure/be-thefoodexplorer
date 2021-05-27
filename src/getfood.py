@@ -1,5 +1,11 @@
+# Source: https://cloud.google.com/firestore/docs/quickstart-servers#python
 from google.cloud import firestore
 db = firestore.Client()
+
+import requests
+api_file = open("api-key.txt", "r")
+api_key = api_file.read()
+api_file.close()
 
 
 def getFoodDetail(food_id):
@@ -10,76 +16,88 @@ def getFoodDetail(food_id):
     pake path berupa id-nya food
     """
 
-    # Initialize data
-    data = {}
+    # Do querying
     users_ref = db.collection(u'food')
     docs = users_ref.where(u'id', u'==', food_id).stream()
 
-
-    # Do querying and check for the result
-    # Currently using dummy data
-    result = {
-            'success' : True,
-            'message' : 'Some message',
-            'data' : {
-                'description' : 'Loren ipsum',
-                'ingredient'  : ['Nasi', 'Tahu'],
-                'taste' : ['Pedas'],
-            }
-        }
-
-    if not result:
-        return {'success' : False,
-                'message' : f'Data id {food_id} tidak ditemukan'}
-   
+    # Check for the result
+    data = {}
     for el in docs:
         data = el.to_dict()
+    if not data:
+        return {'success' : False,
+                'message' : f'Data id {food_id} tidak ditemukan'}
     
-    #data = { el.id: el.to_dict() for el in docs }
-    real_data = data
+    # Assign the query to local variable
     send_dict = {}
-    
-    send_dict['description'] = real_data['description']
-    send_dict['ingredient'] = real_data['ingredients'] 
-    send_dict['taste'] = real_data['taste']
+    send_dict['description'] = data['description']
+    send_dict['ingredient']  = data['ingredients'] 
+    send_dict['taste']       = data['taste']
 
-    return {'success' : True,
-                'message': 'BERHASIL BERHASIL BERHASIL HOREEEE',
-                'data': send_dict
-                }
+    # Return the result
+    return {
+            'success' : True,
+            'message': 'BERHASIL BERHASIL BERHASIL HOREEEE',
+            'data': send_dict
+        }
 
 
-def getFoodStores(food_id):
+def getFoodStores(food_id, lat, lng):
     """
     # 
     ---
     GET method
     pake path berupa id-nya food
     """
-
-    # Initialize data
-    data = {}
-
     # Use Google Maps API for search store (Places)
     # Refer to the docs here
-# Set up console : https://developers.google.com/maps/documentation/places/web-service/cloud-setup
-# Places IDs  : https://developers.google.com/maps/documentation/places/web-service/place-id
-# Places types: https://developers.google.com/maps/documentation/places/web-service/supported_types
+    # Set up console : https://developers.google.com/maps/documentation/places/web-service/cloud-setup
+    # Places IDs  : https://developers.google.com/maps/documentation/places/web-service/place-id
+    # Places types: https://developers.google.com/maps/documentation/places/web-service/supported_types
+    # 
+    # If use cmd, use this
+    # example: https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=YOUR_API_KEY
+    # example link cased on geolocation:
+    #   https://www.google.com/maps/search/?api=1&query={lat},{lng}
 
-    # Currently using dummy data
-    result = {
-            'success' : True,
-            'message' : 'Some message',
-            'data' : {
-                'description' : 'Loren ipsum',
-                'ingredient'  : ['Nasi', 'Tahu'],
-                'taste' : ['Pedas'],
-            }
-        }
-
-    if not result:
+    # Do querying and check for the result
+    docs = db.collection(u'food').where(u'id', u'==', food_id).stream()
+    query = ''
+    for el in docs:
+        query = el.id
+    if not query:
         return {'success' : False,
                 'message' : f'Data id {food_id} tidak ditemukan'}
-    data = result
 
-    return data
+    # Get data from Google Maps API
+    url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?'
+    r = requests.get(
+            url
+            + 'location=' + lat + ',' + lng
+            + '&radius=' + str(1500)
+            + '&type=' + 'bakery,cafe,meal_delivery,meal_takeaway,restaurant,tourist_attraction'
+            + '&keyword' + query
+            + '&key=' + api_key
+        )
+
+    return r.json()
+
+#    # Currently using dummy data
+#    result = {
+#            'success' : True,
+#            'message' : 'Some message',
+#            'data' : [
+#                {
+#                    'name': 'Warung Muthu',
+#                    'address': 'Kampung Durian Runtuh',
+#                    'map_url': 'https://www.google.com/maps/search/?api=1&query='
+#                },
+#                {
+#                    'name': 'Warung Muthu',
+#                    'address': 'Kampung Durian Runtuh',
+#                    'map_url': 'https://www.google.com/maps/search/?api=1&query='
+#                }
+#            ]
+#        }
+#
+#    return result
