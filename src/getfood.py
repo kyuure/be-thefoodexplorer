@@ -3,7 +3,7 @@ from google.cloud import firestore
 db = firestore.Client()
 
 import requests
-api_file = open("api-key.txt", "r")
+api_file = open("/app/api-key.txt", "r")
 api_key = api_file.read()
 api_file.close()
 
@@ -73,31 +73,30 @@ def getFoodStores(food_id, lat, lng):
     url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?'
     r = requests.get(
             url
-            + 'location=' + lat + ',' + lng
+            + 'location=' + str(lat) + ',' + str(lng)
             + '&radius=' + str(1500)
             + '&type=' + 'bakery,cafe,meal_delivery,meal_takeaway,restaurant,tourist_attraction'
             + '&keyword' + query
             + '&key=' + api_key
         )
 
-    return r.json()
+    # Assign the query to local variable
+    r = r.json()['results']
+    send_dict = []
+    real_dict = {}
+    for result in r:
+        real_dict['name']    = result['name']
+        real_dict['address'] = result['vicinity'] 
+        real_dict['map_url'] = 'https://www.google.com/maps/search/' \
+                        + '?api=1&query={},{}'.format(
+                                result['geometry']['location']['lat'],
+                                result['geometry']['location']['lng']
+                            )
+        send_dict.append(real_dict)
 
-#    # Currently using dummy data
-#    result = {
-#            'success' : True,
-#            'message' : 'Some message',
-#            'data' : [
-#                {
-#                    'name': 'Warung Muthu',
-#                    'address': 'Kampung Durian Runtuh',
-#                    'map_url': 'https://www.google.com/maps/search/?api=1&query='
-#                },
-#                {
-#                    'name': 'Warung Muthu',
-#                    'address': 'Kampung Durian Runtuh',
-#                    'map_url': 'https://www.google.com/maps/search/?api=1&query='
-#                }
-#            ]
-#        }
-#
-#    return result
+    # Return the result
+    return {
+            'success' : True,
+            'message': 'BERHASIL BERHASIL BERHASIL HOREEEE',
+            'data': send_dict
+        }
