@@ -63,7 +63,7 @@ def search_image():
 
     else:
         # Search by text
-        query = request.args.get('q')
+        query = str(request.args.get('q'))
 
         if not query:
             return error_json('No query detected.', 400)
@@ -73,11 +73,11 @@ def search_image():
 # Source: https://stackoverflow.com/questions/28229668/python-flask-how-to-get-route-id-from-url
 @app.route('/api/v1/food/<int:food_id>/detail/', methods=['GET'])
 def get_detail(food_id):
-    return jsonify(getFoodDetail(food_id))
+    return jsonify(getFoodDetail(int(food_id)))
 
 @app.route('/api/v1/food/<int:food_id>/location/', methods=['GET'])
 def get_store(food_id):
-    return jsonify(getFoodStores(food_id))
+    return jsonify(getFoodStores(int(food_id)))
 
 
 # Main
