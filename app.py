@@ -77,7 +77,9 @@ def get_detail(food_id):
 
 @app.route('/api/v1/food/<int:food_id>/location/', methods=['GET'])
 def get_store(food_id):
-    return jsonify(getFoodStores(int(food_id)))
+    lat = float(request.args.get('latitude'))
+    lng = float(request.args.get('longitude'))
+    return jsonify(getFoodStores(int(food_id), lat, lng)
 
 
 # Main
