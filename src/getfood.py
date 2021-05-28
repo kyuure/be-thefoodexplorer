@@ -83,8 +83,8 @@ def getFoodStores(food_id, lat, lng):
     # Assign the query to local variable
     r = r.json()['results']
     send_dict = []
-    real_dict = {}
     for result in r:
+        real_dict = {}
         real_dict['name']    = result['name']
         real_dict['address'] = result['vicinity'] 
         real_dict['map_url'] = 'https://www.google.com/maps/search/' \

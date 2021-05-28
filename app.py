@@ -89,7 +89,7 @@ def get_store(food_id):
         lat = '-6.1753924'
         lng = '106.8249641'
 
-    return jsonify(getFoodStores(int(food_id), float(lat), float(lng))
+    return jsonify(getFoodStores(int(food_id), float(lat), float(lng)))
 
 
 # Main
