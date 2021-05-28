@@ -1,35 +1,35 @@
 def print_welcome():
     return """
-Hello world!
+<h1>Hello world!</h1>
 
-This API is intended for TheFoodExplorer application.
+<h2>This API is intended for TheFoodExplorer application.</h2>
 
 """
 
 
 def print_man():
     return """
-    api/search/image
-      POST method
-      form data berisi image
+    <h3>api/search/image</h3>
+      <p>POST method</p>
+      <p>form data berisi image</p>
 
-    api/search/<name>
-      GET method
-      search food using text
-      nyari pake query
+    <h3>api/search/<name></h3>
+      <p>GET method</p>
+      <p>search food using text</p>
+      <p>nyari pake query</p>
 
-    api/food
-      GET method
-      get all food data
-      query semua (SELECT *)
+    <h3>api/food</h3>
+      <p>GET method</p>
+      <p>get all food data</p>
+      <p>query semua (SELECT *)</p>
 
-    api/food/<int:id>
-      GET method
-      get food details based on id
-      pake path berupa id-nya food
+    <h3>api/food/<int:id></h3>
+      <p>GET method</p>
+      <p>get food details based on id</p>
+      <p>pake path berupa id-nya food</p>
 
-    api/food/store/<int:id>
-      GET method
-      get food stores based on id
-      pake path berupa id-nya food
+    <h3>api/food/store/<int:id></h3>
+      <p>GET method</p>
+      <p>get food stores based on id</p>
+      <p>pake path berupa id-nya food</p>
     """
