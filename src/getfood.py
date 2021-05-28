@@ -76,7 +76,7 @@ def getFoodStores(food_id, lat, lng):
             + 'location=' + str(lat) + ',' + str(lng)
             + '&radius=' + str(1500)
             + '&type=' + 'restaurant' #bakery,cafe,meal_delivery,meal_takeaway,restaurant,tourist_attraction'
-            + '&keyword' + query
+            + '&keyword=' + query
             + '&key=' + api_key
         )
 
