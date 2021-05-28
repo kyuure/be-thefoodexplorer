@@ -61,7 +61,7 @@ def searchFoodByText(query):
     real_dict = {}
     send_dict = []
     for el in docs:
-        if not search('*'+query+'*', str(el.id)):
+        if not search('.*'+query.lower()+'.*', str(el.id).lower()):
             continue
         data = el.to_dict()
         real_dict['id']    = data['id']
