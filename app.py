@@ -1,22 +1,27 @@
 # Dependencies
 from werkzeug.utils import secure_filename
 
-from flask import Flask, request, jsonify, make_response
+from flask import (
+        Flask,
+        request,
+        jsonify,
+        make_response,
+    )
 app = Flask(__name__)
 
 
 # The source
 from src.help import (
         print_welcome,
-        print_man
+        print_man,
     )
 from src.searchfood import (
         searchFoodByImage,
-        searchFoodByText
+        searchFoodByText,
     )
 from src.getfood import (
         getFoodDetail,
-        getFoodStores
+        getFoodStores,
     )
 
 
@@ -77,9 +82,14 @@ def get_detail(food_id):
 
 @app.route('/api/v1/food/<int:food_id>/location/', methods=['GET'])
 def get_store(food_id):
-    lat = float(request.args.get('latitude'))
-    lng = float(request.args.get('longitude'))
-    return jsonify(getFoodStores(int(food_id), lat, lng)
+    lat = str(request.args.get('latitude'))
+    lng = str(request.args.get('longitude'))
+
+    if not lat or lng:
+        lat = '-6.1753924'
+        lng = '106.8249641'
+
+    return jsonify(getFoodStores(int(food_id), float(lat), float(lng))
 
 
 # Main
