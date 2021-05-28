@@ -4,7 +4,7 @@ from google.cloud import firestore
 db = firestore.Client()
 
 
-def searchFoodByImage(img, img_name):
+def searchFoodByImage(img):
     """
     # 
     ---
@@ -39,7 +39,7 @@ def searchFoodByImage(img, img_name):
 
     if not result:
         return {'success' : False,
-                'message' : f'Image {img_name} doesnt match any object.'}
+                'message' : 'Image doesnt match any object.'}
     data = result
 
     return data
