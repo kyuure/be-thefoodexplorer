@@ -1,5 +1,7 @@
 # Source: https://cloud.google.com/firestore/docs/quickstart-servers#python
 from re import search
+
+import requests
 from google.cloud import firestore
 db = firestore.Client()
 
@@ -12,37 +14,40 @@ def searchFoodByImage(img):
     formdata berisi image
     """
 
-    # Initialize data
-    data = {}
-
     # Run model then specify the name of food
+    ip_model   = '0.0.0.0'
+    port_model = '8503'
+    r = requests.post(
+            'http://'
+            + ip_model + ':'
+            + port_model + '/',
+        data=img,
+        headers={'content-type': 'application/json'}
+    )
 
-    # Currently using dummy data
-    result = {
+    # Do querying
+    users_ref = db.collection(u'food')
+    docs = users_ref.stream()
+
+    # Assign the query to local variable
+    real_dict = {}
+    send_dict = []
+    for el in docs:
+        if r.text != str(el.id):
+            continue
+        data = el.to_dict()
+        real_dict['id']    = data['id']
+        real_dict['name']  = el.id
+        real_dict['city']  = data['city']
+        real_dict['image'] = data['image']
+        send_dict.append(real_dict)
+
+    # Return the result
+    return {
             'success' : True,
-            'message' : 'Some message',
-            'data' : [
-                {
-                    'id': 0,
-                    'name': 'Tahu',
-                    'city': 'Jakarta',
-                    'image': 'localhost'
-                },
-                {
-                    'id': 0,
-                    'name': 'Tahu',
-                    'city': 'Jakarta',
-                    'image': 'localhost'
-                }
-            ]
+            'message': 'BERHASIL BERHASIL BERHASIL HOREEEE',
+            'data': send_dict
         }
-
-    if not result:
-        return {'success' : False,
-                'message' : 'Image doesnt match any object.'}
-    data = result
-
-    return data
 
 
 def searchFoodByText(query):

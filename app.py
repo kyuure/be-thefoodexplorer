@@ -1,7 +1,5 @@
 # Dependencies
 from werkzeug.utils import secure_filename
-from PIL import Image
-import numpy as np
 
 from flask import (
         Flask,
@@ -60,9 +58,6 @@ def search_image():
             return error_json('No image detected.', 400)
         if not allowed_filename(secure_filename(img.filename)):
             return error_json('File not supported.', 400)
-
-        # Convert image to array
-        img = np.array(Image.open(img))
 
         # Pass it to model
         return jsonify(searchFoodByImage(img))
