@@ -1,6 +1,6 @@
 # be-thefoodexplorer
 
-![alt text](https://github.com/kyuure/be-thefoodexplorer/blob/main/img/v1.0.png "Server Topology")
+![alt text](https://github.com/kyuure/be-thefoodexplorer/blob/main/img/v1.4 "Server Topology")
 Backend source code for TheFoodExplorer
 
 This project is intended for Capstone Project of team Kramcox Bangkit 2021
@@ -28,8 +28,34 @@ be-thefoodexplorer/
 
 
 ## Run docker image locally
-```sh
-git clone https://github.com/kyuure/be-thefoodexplorer.git && cd be-thefoodexplorer
-docker build -t be-thefoodexplorer .
-docker run -p 8080:8080 be-thefoodexplorer
-```
+1. Copy Firestore Private Key and API KEY to `~` directory.
+2. Clone the repo:
+    ```sh
+    git clone https://github.com/kyuure/be-thefoodexplorer.git && cd be-thefoodexplorer
+    ```
+3. Move both files (from step 1) inside current folder.
+4. Create and run docker:
+    ```sh
+    docker build -t thefoodexplorer .
+    docker run -p 8080:8080 thefoodexplorer
+    ```
+5. See the docker to test it by go to https://localhost:8080/
+
+
+## Collaborator
+<table>
+  <tr>
+<td align="center">
+  <img src="https://avatars.githubusercontent.com/kyuure" width="100px;" alt="Salsabila Qothrunnada" style="border-radius:50%"/>
+  <br/>
+  <sub><b>C0080868</b></sub>
+  <br/>
+</td>
+<td align="center">
+  <img src="https://avatars.githubusercontent.com/donitan2018" width="100px;" alt="Salsabila Qothrunnada" style="border-radius:50%"/>
+  <br/>
+  <sub><b>C0080860</b></sub>
+  <br/>
+</td>
+  </tr>
+</table>
