@@ -24,4 +24,5 @@ COPY src src/
 EXPOSE $PORT
 
 # Run the app
-CMD ["python", "app.py"]
+# Source: https://cloud.google.com/run/docs/quickstarts/build-and-deploy/python#containerizing
+CMD exec gunicorn -b :$PORT -w 2 --threads 8 --timeout 0 main:app
