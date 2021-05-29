@@ -25,4 +25,4 @@ EXPOSE $PORT
 
 # Run the app
 # Source: https://cloud.google.com/run/docs/quickstarts/build-and-deploy/python#containerizing
-CMD exec gunicorn -b :$PORT -w 2 --threads 8 --timeout 0 main:app
+CMD exec gunicorn -b :$PORT -w 2 --threads 8 --timeout 0 app:app
