@@ -31,8 +31,8 @@ def getFoodDetail(food_id):
     # Assign the query to local variable
     send_dict = {}
     send_dict['description'] = data['description']
-    send_dict['ingredient']  = data['ingredients'] 
-    send_dict['taste']       = data['taste']
+    send_dict['ingredient']  = list(data['ingredients'].values())
+    send_dict['taste']       = list(data['taste'].values())
 
     # Return the result
     return {

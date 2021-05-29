@@ -30,12 +30,12 @@ def searchFoodByImage(img):
     docs = users_ref.stream()
 
     # Assign the query to local variable
-    real_dict = {}
     send_dict = []
     for el in docs:
         if r.text != str(el.id):
             continue
         data = el.to_dict()
+        real_dict = {}
         real_dict['id']    = data['id']
         real_dict['name']  = el.id
         real_dict['city']  = data['city']
@@ -63,12 +63,14 @@ def searchFoodByText(query):
     docs = users_ref.stream()
     
     # Assign the query to local variable
-    real_dict = {}
     send_dict = []
     for el in docs:
-        if not search('.*'+query.lower()+'.*', str(el.id).lower()):
+        if not search(
+                '.*' + query.lower().replace(' ', '.*') + '.*',
+                str(el.id).lower()):
             continue
         data = el.to_dict()
+        real_dict = {}
         real_dict['id']    = data['id']
         real_dict['name']  = el.id
         real_dict['city']  = data['city'] 
