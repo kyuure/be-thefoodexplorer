@@ -6,6 +6,37 @@ from google.cloud import firestore
 db = firestore.Client()
 
 
+def getFoodAll():
+    """
+    # 
+    ---
+    GET method
+    ambil semua data
+    """
+
+    # Do querying
+    users_ref = db.collection(u'food')
+    docs = users_ref.stream()
+
+    # Assign the query to local variable
+    send_dict = []
+    for el in docs:
+        data = el.to_dict()
+        real_dict = {}
+        real_dict['id']    = data['id']
+        real_dict['name']  = el.id
+        real_dict['city']  = data['city']
+        real_dict['image'] = data['image']
+        send_dict.append(real_dict)
+
+    # Return the result
+    return {
+            'success' : True,
+            'message': 'BERHASIL BERHASIL BERHASIL HOREEEE',
+            'data': send_dict
+        }
+
+
 def searchFoodByImage(img):
     """
     # 

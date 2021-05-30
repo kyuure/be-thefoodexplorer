@@ -91,8 +91,8 @@ def getFoodStores(food_id, lat, lng):
                         + '?api=1&query={},{}'.format(
                                 result['geometry']['location']['lat'],
                                 result['geometry']['location']['lng']
+                            ) \
                         + '&query_place_id=' + result['place_id']
-                            )
         send_dict.append(real_dict)
 
     # Return the result

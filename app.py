@@ -5,7 +5,6 @@ from flask import (
         Flask,
         request,
         jsonify,
-        make_response,
     )
 app = Flask(__name__)
 
@@ -16,6 +15,7 @@ from src.help import (
         print_man,
     )
 from src.searchfood import (
+        getFoodAll,
         searchFoodByImage,
         searchFoodByText,
     )
@@ -34,9 +34,12 @@ def home():
 def help():
     return print_man()
 
-def error_json(message, status_code):
+def error_json(message):
     # Source: https://stackoverflow.com/questions/55081497/cannot-return-404-error-as-json-instead-of-html-from-a-flask-restful-app
-    return make_response(jsonify(message), status_code)
+    return jsonify({
+        'success' : False,
+        'message' : message
+        })
 
 def allowed_filename(filename):
     return '.' in filename \
@@ -55,9 +58,9 @@ def search_image():
 
         # Check image files
         if not img:
-            return error_json('No image detected.', 400)
+            return error_json('No image detected.')
         if not allowed_filename(secure_filename(img.filename)):
-            return error_json('File not supported.', 400)
+            return error_json('File not supported.')
 
         # Pass it to model
         return jsonify(searchFoodByImage(img))
@@ -67,9 +70,13 @@ def search_image():
         query = str(request.args.get('q'))
 
         if not query:
-            return error_json('No query detected.', 400)
+            return error_json('No query detected.')
 
         return jsonify(searchFoodByText(query))
+
+@app.route('/api/v1/food/all/', methods=['GET'])
+def get_all():
+    return jsonify(getFoodAll())
 
 # Source: https://stackoverflow.com/questions/28229668/python-flask-how-to-get-route-id-from-url
 @app.route('/api/v1/food/<int:food_id>/detail/', methods=['GET'])
