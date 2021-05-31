@@ -1,6 +1,6 @@
 # be-thefoodexplorer
 
-![alt text](https://github.com/kyuure/be-thefoodexplorer/blob/main/img/v1.4.png "Server Topology")
+![alt text](https://github.com/kyuure/be-thefoodexplorer/blob/main/img/v1.7.png "Server Topology")
 Backend source code for TheFoodExplorer
 
 This project is intended for Capstone Project of team Kramcox Bangkit 2021
