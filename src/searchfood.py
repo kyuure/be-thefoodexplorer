@@ -1,10 +1,10 @@
 # Source: https://cloud.google.com/firestore/docs/quickstart-servers#python
 from re import search
 import requests
-from google.cloud import firestore
 from PIL import Image
 import numpy as np
 import json
+from google.cloud import firestore
 db = firestore.Client()
 
 
@@ -39,6 +39,24 @@ def getFoodAll():
         }
 
 
+def predict(img):
+    """
+    Function to predict a single input image, image must be in 150 x 150 resolution
+    Output will be the prediction string out of class indicies
+    """
+    class_indicies = ['bakso', 'bika ambon', 'martabak manis', 'nasi goreng', 'rendang', 'sate', 'soto ayam']
+    # image must be 150 x 150
+    x=np.expand_dims(img, axis=0)
+    images = np.vstack([x])
+    images = images/255.0
+    data = json.dumps({"signature_name": "serving_default", "instances": images.tolist()})
+    # print(data)
+    headers = {"content-type": "application/json"}
+    json_response = requests.post('http://34.101.133.114:8503/v1/models/food_model:predict', data=data, headers=headers)
+    # print(json_response.text)
+    predictions = json.loads(json_response.text)['predictions']
+    return class_indicies[np.argmax(predictions[0])]
+
 def searchFoodByImage(img):
     """
     # 
@@ -52,21 +70,8 @@ def searchFoodByImage(img):
     img = img.resize((150,150))
     img = np.array(img)
     img = img[:,:,:3]
-    
     # Predict it
     query = str(predict(img))
-    '''
-    # Run model then specify the name of food
-    ip_model   = '34.101.231.156'
-    port_model = '8080'
-    r = requests.post(
-            'http://'
-            + ip_model +':'+port_model,
-        data=img,
-        headers={'content-type': 'application/json'}
-    )
-    '''
- 
 
     # Do querying
     users_ref = db.collection(u'food')
@@ -136,20 +141,3 @@ def searchFoodByText(query):
             'message': 'BERHASIL BERHASIL BERHASIL HOREEEE',
             'data': send_dict
         }
-def predict(img):
-    """
-    Function to predict a single input image, image must be in 150 x 150 resolution
-    Output will be the prediction string out of class indicies
-    """
-    class_indicies = ['bakso', 'bika ambon', 'martabak manis', 'nasi goreng', 'rendang', 'sate', 'soto ayam']
-    # image must be 150 x 150
-    x=np.expand_dims(img, axis=0)
-    images = np.vstack([x])
-    images = images/255.0
-    data = json.dumps({"signature_name": "serving_default", "instances": images.tolist()})
-    # print(data)
-    headers = {"content-type": "application/json"}
-    json_response = requests.post('http://34.101.133.114:8503/v1/models/food_model:predict', data=data, headers=headers)
-    # print(json_response.text)
-    predictions = json.loads(json_response.text)['predictions']
-    return class_indicies[np.argmax(predictions[0])]
