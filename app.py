@@ -51,11 +51,12 @@ def allowed_filename(filename):
 # Structure API: https://github.com/SaveVic/the-food-explorer/blob/master/docs/api.md
 @app.route('/api/v1/food/', methods=['POST', 'GET'])
 def search_image():
+    print("masuk function")
     if request.method == 'POST':
         # Search by image
         # Source: https://stackoverflow.com/questions/31010819/uploading-file-in-python-flask
         img = request.files['image']
-
+        print("masuk post")
         # Check image files
         if not img:
             return error_json('No image detected.')
@@ -64,6 +65,7 @@ def search_image():
 
         # Pass it to model
         return jsonify(searchFoodByImage(img))
+        #return searchFoodByImage(img)
 
     else:
         # Search by text
