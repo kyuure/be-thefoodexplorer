@@ -38,7 +38,8 @@ def error_json(message):
     # Source: https://stackoverflow.com/questions/55081497/cannot-return-404-error-as-json-instead-of-html-from-a-flask-restful-app
     return jsonify({
         'success' : False,
-        'message' : message
+        'message' : message,
+        'data'    : {},
         })
 
 def allowed_filename(filename):

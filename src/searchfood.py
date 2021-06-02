@@ -94,6 +94,7 @@ def searchFoodByImage(img):
     
     if not send_dict:
         return {'success' : False,
+                'data'    : {},
                 'message' : f'Query {query} doesnt match any object.'}
     # Return the result
     return {
@@ -133,6 +134,7 @@ def searchFoodByText(query):
     # Check for the result
     if not send_dict:
         return {'success' : False,
+                'data'    : {},
                 'message' : f'Query {query} doesnt match any object.'}
 
     # Return the result
