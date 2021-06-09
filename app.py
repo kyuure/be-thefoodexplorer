@@ -39,7 +39,7 @@ def error_json(message):
     return jsonify({
         'success' : False,
         'message' : message,
-        'data'    : {},
+        'data'    : [],
         })
 
 def allowed_filename(filename):

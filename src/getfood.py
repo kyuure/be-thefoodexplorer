@@ -26,7 +26,7 @@ def getFoodDetail(food_id):
         data = el.to_dict()
     if not data:
         return {'success' : False,
-                'data'    : {},
+                'data'    : [],
                 'message' : f'Data id {food_id} tidak ditemukan'}
     
     # Assign the query to local variable
@@ -68,7 +68,7 @@ def getFoodStores(food_id, lat, lng):
         query = el.id
     if not query:
         return {'success' : False,
-                'data'    : {},
+                'data'    : [],
                 'message' : f'Data id {food_id} tidak ditemukan'}
 
     # Get data from Google Maps API
